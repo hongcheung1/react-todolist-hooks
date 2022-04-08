@@ -14,10 +14,12 @@ export default function Members() {
     ? members.filter((member) => member.team.id === +id)
     : members;
 
-    function getTeamName(id) {
-      if(!id) return;
-      return teams.filter(team => team.id === id)[0]['name'];
-    }
+    console.log(members);
+
+  function getTeamName(id) {
+    if(!id) return;
+    return teams.filter(team => team.id === id)[0]['name'];
+  }
 
   return (
     <div className="table-container">
