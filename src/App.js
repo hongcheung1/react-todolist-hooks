@@ -1,18 +1,18 @@
 import "./styles.css";
 import { createContext, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from "./Home";
-import Teams from "./Teams";
-import Members from "./Members";
-import FormWrapper from "./FormWrapper";
+import Home from "./components/Home";
+import Teams from "./components/Teams";
+import Members from "./components/Members";
+import FormWrapper from "./components/Form/FormWrapper";
 import { teamsData } from "./data";
 import { membersData } from "./data";
 
 export const WrapperContext = createContext(null);
 
 export default function App() {
-  const [teams, setTeams] = useState(teamsData);
-  const [members, setMembers] = useState(membersData);
+  const [teams, setTeams] = useState(teamsData['teams']);
+  const [members, setMembers] = useState(membersData['members']);
 
   function updateTeam() {
     setTeams((teams) => teams);
