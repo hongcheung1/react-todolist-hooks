@@ -5,7 +5,7 @@ import { WrapperContext } from "../App";
 export default function Teams() {
   const { teams } = useContext(WrapperContext);
   const navigate = useNavigate();
-
+console.log(teams);
   return (
     <div className="teams-container">
       <h3>Teams Page</h3>

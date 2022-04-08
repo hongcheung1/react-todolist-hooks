@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { WrapperContext } from "../App";
 
 export default function Members() {
-  const { members } = useContext(WrapperContext);
+  const { members, teams } = useContext(WrapperContext);
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
 
@@ -13,6 +13,11 @@ export default function Members() {
   const list = id
     ? members.filter((member) => member.team.id === +id)
     : members;
+
+    function getTeamName(id) {
+      if(!id) return;
+      return teams.filter(team => team.id === id)[0]['name'];
+    }
 
   return (
     <div>
@@ -33,7 +38,7 @@ export default function Members() {
               <td>{item.first_name}</td>
               <td>{item.last_name}</td>
               <td>{item.email}</td>
-              <td>{item.team.name}</td>
+              <td>{getTeamName(item.team.id)}</td>
               <td>
                 <Link to={`/edit?type=member&id=${item.id}`}>
                   <button>Edit</button>
@@ -43,7 +48,7 @@ export default function Members() {
           ))}
         </tbody>
       </table>
-      <Link to="/create?type=member">
+      <Link to={`/create?type=member&id=${id}`}>
         <button>Add Member</button>
       </Link>
       <button onClick={() => navigate(-1)}>Go back</button>

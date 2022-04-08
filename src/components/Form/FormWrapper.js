@@ -22,7 +22,7 @@ export default function FormWrapper() {
         ? members.filter((member) => member.id === +id)[0]
         : teams.filter((team) => team.id === +id)[0]
     : type === "member" 
-      ? { first_name: '', last_name: '', email: '', team: { id: '' }} 
+      ? { first_name: '', last_name: '', email: '', team: { id: +id ? +id : 1 }} 
       : { name: ''}
       
   const [data, setData] = useState(initialData);
@@ -50,7 +50,7 @@ export default function FormWrapper() {
     event.preventDefault();
     const isNew = mode === 'create' ? true : false;
     type === 'team' && updateTeam(data, isNew);
-    type === 'member' && updateMember(data, isNew)
+    type === 'member' && updateMember(data, isNew);
     navigate(-1);
   }
 

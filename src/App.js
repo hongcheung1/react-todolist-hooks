@@ -34,16 +34,13 @@ export default function App() {
       if(isNew) {
         const teamCopy = {
           ...data,
-          id: prev.length + 1,
+          id: Math.floor((1 + Math.random() * 100000)), // generate dump id
         }
         return [...prev, teamCopy];
       } else {
-        prev.map(team => {
+        return prev.map(team => {
           if(team.id === data.id) {
-            const teamCopy = {...team};
-            teamCopy.name = data.name;
-            return teamCopy;
-            // return {...team, ...data};
+            return {...team, ...data};
           } else return team;
         })
       }
@@ -55,12 +52,11 @@ export default function App() {
       if(isNew) {
         const memberCopy = {
           ...data,
-          id: prev.length + 1,
+          id: Math.floor((1 + Math.random() * 100000)), // generate dump id
         }
         return [...prev, memberCopy];
       } else {
-        console.log(prev, data.id);
-        prev.map(member => {
+        return prev.map(member => {
           if(member.id === data.id) {
             return {...member, ...data};
           } else return member;
