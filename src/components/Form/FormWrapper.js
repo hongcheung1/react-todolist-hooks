@@ -55,7 +55,7 @@ export default function FormWrapper() {
   }
 
   return (
-    <div>
+    <div className="form-container">
       <h3>{title}</h3>
       <form onSubmit={handleSubmit}> 
         {type === "member" && (
@@ -63,7 +63,7 @@ export default function FormWrapper() {
         )}
         {type === "team" && <TeamForm data={data} handleChange={handleChange} />}
 
-        <div className="form-body">
+        <div className="actions">
           <button type="submit">{text}</button>
           <Link to='/'><button type='button'>Back</button></Link>
         </div>

@@ -7,7 +7,7 @@ export default function Teams() {
   const navigate = useNavigate();
 console.log(teams);
   return (
-    <div className="teams-container">
+    <div className="table-container">
       <h3>Teams Page</h3>
 
       <table>
@@ -35,10 +35,12 @@ console.log(teams);
         </tbody>
       </table>
 
-      <Link to="/create?type=team">
-        <button>Add Team</button>
-      </Link>
-      <button onClick={() => navigate(-1)}>Go back</button>
+      <div className="actions">
+        <Link to="/create?type=team">
+          <button>Add Team</button>
+        </Link>
+        <button onClick={() => navigate(-1)}>Go back</button>
+      </div>
     </div>
   );
 }

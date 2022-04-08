@@ -20,7 +20,7 @@ export default function Members() {
     }
 
   return (
-    <div>
+    <div className="table-container">
       <h3>Members</h3>
       <table>
         <thead>
@@ -48,10 +48,12 @@ export default function Members() {
           ))}
         </tbody>
       </table>
-      <Link to={`/create?type=member&id=${id}`}>
-        <button>Add Member</button>
-      </Link>
-      <button onClick={() => navigate(-1)}>Go back</button>
+      <div className="actions">
+        <Link to={`/create?type=member&id=${id}`}>
+          <button>Add Member</button>
+        </Link>
+        <button onClick={() => navigate(-1)}>Go back</button>
+        </div>
     </div>
   );
 }
