@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { WrapperContext } from "../App";
 
 export default function Members() {
-  const { members, teams } = useContext(WrapperContext);
+  const { members, teams, handleRemove } = useContext(WrapperContext);
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
 
@@ -13,8 +13,6 @@ export default function Members() {
   const list = id
     ? members.filter((member) => member.team.id === +id)
     : members;
-
-    console.log(members);
 
   function getTeamName(id) {
     if(!id) return;
@@ -45,6 +43,9 @@ export default function Members() {
                 <Link to={`/edit?type=member&id=${item.id}`}>
                   <button>Edit</button>
                 </Link>
+              </td>
+              <td>
+                <button onClick={() => handleRemove('member', item.id)}>Delete</button>
               </td>
             </tr>
           ))}

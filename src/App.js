@@ -69,10 +69,19 @@ export default function App() {
     });
   }, []);
 
+  function handleRemove(type, id) {
+    if(type === 'team') {
+      setTeams((prev) => prev.filter(team => team.id !== id))
+    }
+    if(type === 'member') {
+      setMembers((prev) => prev.filter(member => member.id !== id));
+    }
+  }
+
   return (
     <div className="App">
       <WrapperContext.Provider
-        value={{ teams, members, updateTeam, updateMember }}
+        value={{ teams, members, updateTeam, updateMember, handleRemove }}
       >
         <RouteWrapper/>
       </WrapperContext.Provider>

@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { WrapperContext } from "../App";
 
 export default function Teams() {
-  const { teams } = useContext(WrapperContext);
+  const { teams, handleRemove } = useContext(WrapperContext);
   const navigate = useNavigate();
 
   return (
@@ -30,6 +30,7 @@ export default function Teams() {
                   <button>Edit</button>
                 </Link>
               </td>
+              <td><button onClick={() => handleRemove('team', item.id)}>Delete</button></td>
             </tr>
           ))}
         </tbody>
