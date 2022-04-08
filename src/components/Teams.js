@@ -1,9 +1,10 @@
-import { useState, useContext } from "react";
-import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { WrapperContext } from "../App";
 
 export default function Teams() {
   const { teams } = useContext(WrapperContext);
+  const navigate = useNavigate();
 
   return (
     <div className="teams-container">
@@ -12,8 +13,8 @@ export default function Teams() {
       <table>
         <thead>
           <tr>
-            <th>Team Name</th>
-            <th>Member Count</th>
+            <th>Name</th>
+            <th>Count</th>
             <th>Action</th>
           </tr>
         </thead>
@@ -37,9 +38,7 @@ export default function Teams() {
       <Link to="/create?type=team">
         <button>Add Team</button>
       </Link>
-      <Link to="/">
-        <button>Go back</button>
-      </Link>
+      <button onClick={() => navigate(-1)}>Go back</button>
     </div>
   );
 }

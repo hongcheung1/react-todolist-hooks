@@ -1,13 +1,14 @@
 import { useState, useContext } from "react";
-import { useLocation, useSearchParams, Link } from "react-router-dom";
+import { useLocation, useSearchParams, useNavigate, Link } from "react-router-dom";
 import { WrapperContext } from "../../App";
 import TeamForm from "./TeamForm";
 import MemberForm from "./MemberForm";
 
 export default function FormWrapper() {
-  const { teams, members } = useContext(WrapperContext);
+  const { teams, members, updateTeam, updateMember } = useContext(WrapperContext);
   const [searchParams] = useSearchParams();
   const { pathname } = useLocation();
+  const navigate = useNavigate();
 
   const type = searchParams.get("type");
   const mode = pathname.replace("/", "");
@@ -16,24 +17,41 @@ export default function FormWrapper() {
   const id = searchParams.get("id");
 
   const initialData =
-    type === "member"
-      ? members.filter((member) => member.id === +id)[0]
-      : teams.filter((team) => team.id === +id)[0];
+    mode === 'edit' ?
+      type === "member"
+        ? members.filter((member) => member.id === +id)[0]
+        : teams.filter((team) => team.id === +id)[0]
+    : type === "member" 
+      ? { first_name: '', last_name: '', email: '', team: { id: '' }} 
+      : { name: ''}
       
   const [data, setData] = useState(initialData);
 
   function handleChange(event) {
     event.preventDefault();
     const { name, value } = event.target;
-    setData({
-      ...data,
-      [name]: value
-    });
+    if(name === 'team') {
+      setData({
+        ...data,
+        [name]: {
+          id: +value,
+          name: teams[+value-1].name
+        }
+      })
+    } else {
+      setData({
+        ...data,
+        [name]: value
+      });
+    }
   }
 
   function handleSubmit(event) {
     event.preventDefault();
-    console.log(data);
+    const isNew = mode === 'create' ? true : false;
+    type === 'team' && updateTeam(data, isNew);
+    type === 'member' && updateMember(data, isNew)
+    navigate(-1);
   }
 
   return (
@@ -47,9 +65,7 @@ export default function FormWrapper() {
 
         <div className="form-body">
           <button type="submit">{text}</button>
-          <Link to="/">
-            <button>Back</button>
-          </Link>
+          <Link to='/'><button type='button'>Back</button></Link>
         </div>
       </form>
     </div>
