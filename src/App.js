@@ -53,6 +53,10 @@ export default function App() {
         const memberCopy = {
           ...data,
           id: Math.floor((1 + Math.random() * 100000)), // generate dump id
+          team: {
+            ...data['team'],
+            name: teams.filter(team => team.id === data['team'].id)[0]['name']
+          }
         }
         return [...prev, memberCopy];
       } else {
