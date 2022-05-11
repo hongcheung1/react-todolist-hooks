@@ -7,8 +7,9 @@ import Members from "./components/Members";
 import FormWrapper from "./components/Form/FormWrapper";
 import { teamsData } from "./data";
 import { membersData } from "./data";
+import { MemberType, TeamType } from "./data-types";
 
-export const WrapperContext = createContext(null);
+export const WrapperContext = createContext<any>(null);
 
 function RouteWrapper() {
   return <>
@@ -25,11 +26,15 @@ function RouteWrapper() {
   </>
 }
 
+interface Data {
+
+}
+
 export default function App() {
-  const [teams, setTeams] = useState(teamsData['teams']);
+  const [teams, setTeams] = useState<TeamType[]>(teamsData['teams']);
   const [members, setMembers] = useState(membersData['members']);
 
-  const updateTeam = useCallback((data, isNew) => {
+  const updateTeam = useCallback((data:TeamType, isNew:boolean) => {
     setTeams((prev) => {
       if(isNew) {
         const teamCopy = {
@@ -47,7 +52,7 @@ export default function App() {
     });
   }, []);
 
-  const updateMember = useCallback((data, isNew) => {
+  const updateMember = useCallback((data:MemberType, isNew:boolean) => {
     setMembers((prev) => {
       if(isNew) {
         const memberCopy = {
@@ -69,7 +74,7 @@ export default function App() {
     });
   }, []);
 
-  function handleRemove(type, id) {
+  function handleRemove(type:string, id:number) {
     if(type === 'team') {
       setTeams((prev) => prev.filter(team => team.id !== id))
     }

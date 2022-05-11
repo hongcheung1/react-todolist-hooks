@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { WrapperContext } from "../App";
+import { TeamType } from "../data-types";
 
 export default function Teams() {
   const { teams, handleRemove } = useContext(WrapperContext);
@@ -19,7 +20,7 @@ export default function Teams() {
           </tr>
         </thead>
         <tbody>
-          {teams.map((item, index) => (
+          {teams.map((item: TeamType, index: number) => (
             <tr key={index}>
               <td>
                 <Link to={`/members?id=${item.id}`}>{item.name}</Link>

@@ -3,6 +3,7 @@ import { useSearchParams, useNavigate } from "react-router-dom";
 
 import { Link } from "react-router-dom";
 import { WrapperContext } from "../App";
+import { MemberType, TeamType } from "../data-types";
 
 export default function Members() {
   const { members, teams, handleRemove } = useContext(WrapperContext);
@@ -11,12 +12,12 @@ export default function Members() {
 
   const id = searchParams.get("id");
   const list = id
-    ? members.filter((member) => member.team.id === +id)
+    ? members.filter((member: MemberType) => member.team.id === +id)
     : members;
 
-  function getTeamName(id) {
+  function getTeamName(id: number) {
     if(!id) return;
-    return teams.filter(team => team.id === id)[0]['name'];
+    return teams.filter((team: TeamType) => team.id === id)[0]['name'];
   }
 
   return (
@@ -33,7 +34,7 @@ export default function Members() {
           </tr>
         </thead>
         <tbody>
-          {list.map((item, index) => (
+          {list.map((item: MemberType, index: number) => (
             <tr key={index}>
               <td>{item.first_name}</td>
               <td>{item.last_name}</td>

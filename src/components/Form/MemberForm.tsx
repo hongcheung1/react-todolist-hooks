@@ -1,7 +1,13 @@
 import {useContext} from 'react';
 import { WrapperContext } from "../../App";
+import { MemberType, TeamType } from '../../data-types';
 
-export default function MemberForm({ data, handleChange }) {
+interface IProps {
+  data: MemberType;
+  handleChange: React.ChangeEventHandler;
+}
+
+export default function MemberForm({ data, handleChange }: IProps) {
   const { teams } = useContext(WrapperContext);
 
   return (
@@ -37,7 +43,7 @@ export default function MemberForm({ data, handleChange }) {
         <label htmlFor='team'>Select Team: </label>
         <select name='team' id='team' defaultValue={data['team'].id} onChange={handleChange}>
           <option value="DEFAULT" disabled>Choose a team ...</option>
-          {teams.map((team, index) => 
+          {teams.map((team: TeamType, index: number) => 
             <option 
               key={index}
               value={team.id}

@@ -3,6 +3,7 @@ import { useLocation, useSearchParams, useNavigate, Link } from "react-router-do
 import { WrapperContext } from "../../App";
 import TeamForm from "./TeamForm";
 import MemberForm from "./MemberForm";
+import { MemberType, TeamType } from "../../data-types";
 
 export default function FormWrapper() {
   const { teams, members, updateTeam, updateMember } = useContext(WrapperContext);
@@ -14,20 +15,20 @@ export default function FormWrapper() {
   const mode = pathname.replace("/", "");
   const text = mode === "create" ? "Create" : "Update";
   const title = `${text} ${type}`;
-  const id = searchParams.get("id");
+  const id = searchParams.get("id") || '';
 
   const initialData =
     mode === 'edit' ?
       type === "member"
-        ? members.filter((member) => member.id === +id)[0]
-        : teams.filter((team) => team.id === +id)[0]
+        ? members.filter((member: MemberType) => member.id === +id)[0]
+        : teams.filter((team: TeamType) => team.id === +id)[0]
     : type === "member" 
       ? { first_name: '', last_name: '', email: '', team: { id: +id ? +id : 1 }} 
       : { name: ''}
       
   const [data, setData] = useState(initialData);
 
-  function handleChange(event) {
+  const handleChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
     event.preventDefault();
     const { name, value } = event.target;
     if(name === 'team') {
@@ -46,7 +47,7 @@ export default function FormWrapper() {
     }
   }
 
-  function handleSubmit(event) {
+  function handleSubmit(event: React.SyntheticEvent) {
     event.preventDefault();
     const isNew = mode === 'create' ? true : false;
     type === 'team' && updateTeam(data, isNew);
